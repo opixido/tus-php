@@ -203,7 +203,7 @@ class FileStore extends AbstractCache
             $this->createCacheFile();
         }
 
-        return $this->lock($cacheFile, LOCK_EX, function ($handle) use ($cacheKey, $cacheFile, $value) {
+        return $this->lock($cacheFile, LOCK_SH, function ($handle) use ($cacheKey, $cacheFile, $value) {
             $contents = fread($handle, filesize($cacheFile) ?: 1) ?? '';
             $contents = json_decode($contents, true) ?? [];
 
